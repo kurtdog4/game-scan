@@ -1,7 +1,10 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:game_scan/landing_page.dart';
+import 'package:game_scan/pages/browse_page.dart';
+import 'package:game_scan/pages/history_page.dart';
+import 'package:game_scan/pages/rulesbot_page.dart';
+import 'package:game_scan/pages/search_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,10 +27,13 @@ class MyApp extends StatelessWidget {
         primaryColor: Color.fromARGB(255, 41, 41, 41),
         accentColor: const Color.fromARGB(255, 255, 217, 1),
       ),
-      initialRoute: LandingPage.route,
+      initialRoute: SearchPage.route,
       onGenerateRoute: (RouteSettings settings) {
         var routes = {
-          LandingPage.route: (context) => const LandingPage(),
+          SearchPage.route: (context) => const SearchPage(),
+          HistoryPage.route: (context) => const HistoryPage(),
+          BrowsePage.route: (context) => const BrowsePage(),
+          RulesbotPage.route: (context) => const RulesbotPage(),
         };
         return MaterialPageRoute(
           builder: routes[settings.name]!,

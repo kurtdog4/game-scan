@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:game_scan/pages/browse_page.dart';
+import 'package:game_scan/pages/history_page.dart';
+import 'package:game_scan/pages/rulesbot_page.dart';
+import 'package:game_scan/pages/search_page.dart';
 
-class LandingPage extends StatefulWidget {
-  static const String route = 'landing-page-route';
-
-  // final String title;
-  const LandingPage({Key? key}) : super(key: key);
-
-  @override
-  State<LandingPage> createState() => _LandingPageState();
+enum ScaffoldPage {
+  history,
+  search,
+  empty,
+  browse,
+  rulesbot,
 }
 
-class _LandingPageState extends State<LandingPage> {
+class GameScanScaffold extends StatefulWidget {
+  final ScaffoldPage scaffoldPage;
+  final Widget child;
+
   @override
-  Widget build(BuildContext context) {
+  State<GameScanScaffold> createState() => _GameScanScaffoldState();
+
+  const GameScanScaffold({
+    required this.scaffoldPage,
+    required this.child,
+    Key? key,
+  }) : super(key: key);
+}
+
+class _GameScanScaffoldState extends State<GameScanScaffold> {
+  @override
+  Widget build(BuildContext build) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -25,15 +41,11 @@ class _LandingPageState extends State<LandingPage> {
         actions: [
           IconButton(
             onPressed: () => null,
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [],
-        ),
-      ),
+      body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Theme.of(context).primaryColor,
@@ -41,6 +53,8 @@ class _LandingPageState extends State<LandingPage> {
         unselectedItemColor: Colors.white,
         selectedFontSize: 14,
         unselectedFontSize: 14,
+        currentIndex: widget.scaffoldPage.index,
+        onTap: _bottomNavBarTap,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
@@ -65,12 +79,37 @@ class _LandingPageState extends State<LandingPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        // backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).accentColor,
         child: const Icon(Icons.camera_alt),
         onPressed: () => null,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       resizeToAvoidBottomInset: false,
     );
+  }
+
+  void _bottomNavBarTap(int index) {
+    // Index 2 is empty and
+    ScaffoldPage scaffoldPage = ScaffoldPage.values[index];
+    if (scaffoldPage == widget.scaffoldPage) {
+      return;
+    }
+    switch (scaffoldPage) {
+      case ScaffoldPage.history:
+        Navigator.of(context).pushNamed(HistoryPage.route);
+        break;
+      case ScaffoldPage.search:
+        Navigator.of(context).pushNamed(SearchPage.route);
+        break;
+      case ScaffoldPage.browse:
+        Navigator.of(context).pushNamed(BrowsePage.route);
+        break;
+      case ScaffoldPage.rulesbot:
+        Navigator.of(context).pushNamed(RulesbotPage.route);
+        break;
+      default:
+        break;
+    }
+    return;
   }
 }
