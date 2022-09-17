@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "game_scan",
+            "cwd": "game_scan",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "game_scan (profile mode)",
+            "cwd": "game_scan",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "game_scan (release mode)",
+            "cwd": "game_scan",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

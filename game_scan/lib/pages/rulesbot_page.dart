@@ -4,7 +4,6 @@ import 'package:game_scan/widgets/game_scan_scaffold.dart';
 class RulesbotPage extends StatefulWidget {
   static const String route = 'rulesbot-page-route';
 
-  // final String title;
   const RulesbotPage({Key? key}) : super(key: key);
 
   @override
@@ -16,26 +15,29 @@ class _RulesbotPageState extends State<RulesbotPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GameScanScaffold(
-      scaffoldPage: ScaffoldPage.rulesbot,
-      child: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: "Search",
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () => null,
+    return Hero(
+      tag: scaffoldHeroTag,
+      child: GameScanScaffold(
+        scaffoldPage: ScaffoldPage.rulesbot,
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: searchController,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: "Search",
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.search),
+                      onPressed: () => null,
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

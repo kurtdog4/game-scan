@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:game_scan/pages/browse_page.dart';
+import 'package:game_scan/pages/game_scan_page.dart';
 import 'package:game_scan/pages/history_page.dart';
 import 'package:game_scan/pages/rulesbot_page.dart';
 import 'package:game_scan/pages/search_page.dart';
@@ -11,6 +13,8 @@ enum ScaffoldPage {
   browse,
   rulesbot,
 }
+
+const String scaffoldHeroTag = "ScaffoldHeroTag";
 
 class GameScanScaffold extends StatefulWidget {
   final ScaffoldPage scaffoldPage;
@@ -33,6 +37,8 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Theme.of(context).primaryColor),
         leading: IconButton(
           icon: Image.asset("assets/GSLogoWhite.png"),
           iconSize: 50,
@@ -79,9 +85,10 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         backgroundColor: Theme.of(context).accentColor,
         child: const Icon(Icons.camera_alt),
-        onPressed: () => null,
+        onPressed: () => Navigator.of(context).pushNamed(GameScanPage.route),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       resizeToAvoidBottomInset: false,

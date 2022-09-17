@@ -1,7 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:game_scan/pages/browse_page.dart';
+import 'package:game_scan/pages/game_scan_page.dart';
 import 'package:game_scan/pages/history_page.dart';
 import 'package:game_scan/pages/rulesbot_page.dart';
 import 'package:game_scan/pages/search_page.dart';
@@ -34,6 +33,7 @@ class MyApp extends StatelessWidget {
           HistoryPage.route: (context) => const HistoryPage(),
           BrowsePage.route: (context) => const BrowsePage(),
           RulesbotPage.route: (context) => const RulesbotPage(),
+          GameScanPage.route: (context) => const GameScanPage(),
         };
         return MaterialPageRoute(
           builder: routes[settings.name]!,
