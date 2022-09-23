@@ -43,7 +43,7 @@ class _GameScanPageState extends State<GameScanPage> {
                 appBar: AppBar(
                   backgroundColor: Colors.transparent,
                   systemOverlayStyle:
-                      SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+                      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
                   elevation: 0,
                   leading: IconButton(
                     onPressed: () => Navigator.of(context).pop(),
@@ -51,7 +51,7 @@ class _GameScanPageState extends State<GameScanPage> {
                   ),
                 ),
                 floatingActionButton: IconButton(
-                  icon: Icon(Icons.circle_outlined),
+                  icon: const Icon(Icons.circle_outlined),
                   color: Colors.white,
                   iconSize: 75,
                   onPressed: () => null,

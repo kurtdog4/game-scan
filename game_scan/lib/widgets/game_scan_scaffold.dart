@@ -35,10 +35,8 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
   Widget build(BuildContext build) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
         systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Theme.of(context).primaryColor),
+            statusBarColor: Theme.of(context).colorScheme.primary),
         leading: IconButton(
           icon: Image.asset("assets/GSLogoWhite.png"),
           iconSize: 50,
@@ -54,9 +52,7 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Theme.of(context).primaryColor,
-        selectedItemColor: Theme.of(context).accentColor,
-        unselectedItemColor: Colors.white,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         selectedFontSize: 14,
         unselectedFontSize: 14,
         currentIndex: widget.scaffoldPage.index,
@@ -70,23 +66,10 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
             icon: Icon(Icons.search),
             label: "Search",
           ),
-          BottomNavigationBarItem(
-            icon: SizedBox.shrink(),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: "Browse",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.question_answer),
-            label: "Rulesbot",
-          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: null,
-        backgroundColor: Theme.of(context).accentColor,
         child: const Icon(Icons.camera_alt),
         onPressed: () => Navigator.of(context).pushNamed(GameScanPage.route),
       ),
@@ -96,7 +79,6 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
   }
 
   void _bottomNavBarTap(int index) {
-    // Index 2 is empty and
     ScaffoldPage scaffoldPage = ScaffoldPage.values[index];
     if (scaffoldPage == widget.scaffoldPage) {
       return;
