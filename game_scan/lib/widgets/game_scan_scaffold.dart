@@ -5,6 +5,7 @@ import 'package:game_scan/pages/game_scan_page.dart';
 import 'package:game_scan/pages/history_page.dart';
 import 'package:game_scan/pages/rulesbot_page.dart';
 import 'package:game_scan/pages/search_page.dart';
+import 'package:game_scan/widgets/game_scan_settings_button.dart';
 
 enum ScaffoldPage {
   history,
@@ -42,11 +43,8 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
           iconSize: 50,
           onPressed: () => null,
         ),
-        actions: [
-          IconButton(
-            onPressed: () => null,
-            icon: const Icon(Icons.settings),
-          ),
+        actions: const [
+          GameScanSettingsButton(),
         ],
       ),
       body: widget.child,

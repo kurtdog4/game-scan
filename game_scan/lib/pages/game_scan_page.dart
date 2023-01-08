@@ -1,9 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:game_scan/widgets/game_scan_back_button.dart';
 
 class GameScanPage extends StatefulWidget {
-  static const String route = 'game-scan-page-route';
+  static const String route = 'game-scan';
 
   const GameScanPage({Key? key}) : super(key: key);
 
@@ -45,10 +46,7 @@ class _GameScanPageState extends State<GameScanPage> {
                   systemOverlayStyle:
                       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
                   elevation: 0,
-                  leading: IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.arrow_back),
-                  ),
+                  leading: const BackButton(),
                 ),
                 floatingActionButton: IconButton(
                   icon: const Icon(Icons.circle_outlined),

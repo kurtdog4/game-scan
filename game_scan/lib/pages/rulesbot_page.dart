@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_scan/widgets/game_scan_scaffold.dart';
 
 class RulesbotPage extends StatefulWidget {
-  static const String route = 'rulesbot-page-route';
+  static const String route = 'rulesbot';
 
   const RulesbotPage({Key? key}) : super(key: key);
 

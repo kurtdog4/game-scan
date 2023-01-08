@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_scan/widgets/game_scan_scaffold.dart';
 
 class BrowsePage extends StatefulWidget {
-  static const String route = 'browse-page-route';
+  static const String route = 'browse';
 
   const BrowsePage({Key? key}) : super(key: key);
 
