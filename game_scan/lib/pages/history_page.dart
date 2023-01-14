@@ -26,7 +26,7 @@ class _HistoryPageState extends State<HistoryPage> {
       child: GameScanScaffold(
         scaffoldPage: ScaffoldPage.history,
         child: boardgames.isEmpty
-            ? const Text("No Search History Found")
+            ? const Center(child: Text("No Search History Found"))
             : GameList(
                 boardgames: boardgames,
               ),

@@ -53,7 +53,7 @@ class Boardgame extends Equatable {
     title = json['Title'];
     thumbnail = json['Thumbnail'];
     releaseYear = json['ReleaseYear'];
-    geekID = int.parse(json['GeekId']);
+    geekID = json['GeekId'] is int ? json['GeekId'] : int.parse(json['GeekId']);
     description = json['Description'];
     minPlayers = json['MinNumberOfPlayers'];
     maxPlayers = json['MaxNumberOfPlayers'];
