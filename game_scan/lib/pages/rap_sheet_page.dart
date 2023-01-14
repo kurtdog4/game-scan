@@ -6,7 +6,6 @@ import 'package:game_scan/models/boardgame.dart';
 import 'package:game_scan/services/bgg_api.dart';
 import 'package:game_scan/services/game_library_api.dart';
 import 'package:game_scan/widgets/game_scan_app_bar.dart';
-import 'package:game_scan/widgets/game_scan_settings_button.dart';
 import 'package:provider/provider.dart';
 
 class RapSheetPageArgs {
