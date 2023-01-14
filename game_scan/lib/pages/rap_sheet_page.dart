@@ -5,7 +5,7 @@ import 'package:game_scan/models/bgg_boardgame.dart';
 import 'package:game_scan/models/boardgame.dart';
 import 'package:game_scan/services/bgg_api.dart';
 import 'package:game_scan/services/game_library_api.dart';
-import 'package:game_scan/widgets/game_scan_back_button.dart';
+import 'package:game_scan/widgets/game_scan_app_bar.dart';
 import 'package:game_scan/widgets/game_scan_settings_button.dart';
 import 'package:provider/provider.dart';
 
@@ -44,11 +44,11 @@ class _RapSheetPageState extends State<RapSheetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const GameScanBackButton(),
-        actions: const [
-          GameScanSettingsButton(),
-        ],
+      appBar: gameScanAppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: FutureBuilder(
         future: _bggBoardgame,
@@ -406,7 +406,8 @@ class _RapSheetPageState extends State<RapSheetPage> {
                                                       );
                                                     } else if (snapshot
                                                         .hasError) {
-                                                      return const Text('Error');
+                                                      return const Text(
+                                                          'Error');
                                                     } else {
                                                       return Text(
                                                         '${snapshot.data!.geekWeight}',

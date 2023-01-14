@@ -5,6 +5,7 @@ import 'package:game_scan/pages/game_scan_page.dart';
 import 'package:game_scan/pages/history_page.dart';
 import 'package:game_scan/pages/rulesbot_page.dart';
 import 'package:game_scan/pages/search_page.dart';
+import 'package:game_scan/widgets/game_scan_app_bar.dart';
 import 'package:game_scan/widgets/game_scan_settings_button.dart';
 
 enum ScaffoldPage {
@@ -35,17 +36,15 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
   @override
   Widget build(BuildContext build) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Theme.of(context).colorScheme.primary),
-        leading: IconButton(
-          icon: Image.asset("assets/GSLogoWhite.png"),
-          iconSize: 50,
-          onPressed: () => null,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(40),
+        child: gameScanAppBar(
+          leading: IconButton(
+            icon: Image.asset("assets/GSLogoWhite.png"),
+            iconSize: 50,
+            onPressed: () {},
+          ),
         ),
-        actions: const [
-          GameScanSettingsButton(),
-        ],
       ),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
