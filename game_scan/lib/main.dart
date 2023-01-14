@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
               if (settings.name == RapSheetPage.route) {
                 RapSheetPageArgs rapSheetPageArgs =
                     settings.arguments as RapSheetPageArgs;
-                return RapSheetPage(rapSheetPageArgs.spudID);
+                return RapSheetPage(rapSheetPageArgs.spudID, rapSheetPageArgs.geekID);
               } else {
                 return routes[settings.name]!;
               }

@@ -88,7 +88,7 @@ class _GameListState extends State<GameList> {
               ),
             ),
             onTap: () => Navigator.of(context).pushNamed(RapSheetPage.route,
-                arguments: RapSheetPageArgs(boardgame.spudID)),
+                arguments: RapSheetPageArgs(boardgame.spudID, boardgame.geekID)),
           ),
         );
       },

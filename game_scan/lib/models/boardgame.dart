@@ -5,7 +5,7 @@ class Boardgame extends Equatable {
   late String title;
   late String thumbnail;
   late int releaseYear;
-  late int? geekID;
+  late int geekID;
   String? description;
   int? minPlayers;
   int? maxPlayers;
@@ -27,7 +27,7 @@ class Boardgame extends Equatable {
     required this.title,
     required this.thumbnail,
     required this.releaseYear,
-    this.geekID,
+    required this.geekID,
     this.description,
     this.minPlayers,
     this.maxPlayers,
@@ -53,6 +53,7 @@ class Boardgame extends Equatable {
     title = json['Title'];
     thumbnail = json['Thumbnail'];
     releaseYear = json['ReleaseYear'];
+    geekID = int.parse(json['GeekId']);
     description = json['Description'];
     minPlayers = json['MinNumberOfPlayers'];
     maxPlayers = json['MaxNumberOfPlayers'];
@@ -62,13 +63,12 @@ class Boardgame extends Equatable {
     age = json['Age'];
     amazonASIN = json['AmazonASIN'];
     image = json['Image'];
-    geekID = json['GeekId'] == null ? null : int.parse(json['GeekId']);
     geekRating = json['GeekRating'];
     geekWeight = json['Weight'];
     atlasID = json['AtlasId'];
     atlasRating = json['AtlasRating'];
-    learningComplexity = json['LearningComplexity'] as double;
-    strategyComplexity = json['StrategyComplexity'] as double;
+    learningComplexity = json['LearningComplexity'] is int ? json['LearningComplexity'].toDouble() : json['LearningComplexity'];
+    strategyComplexity = json['StrategyComplexity'] is int ? json['StrategyComplexity'].toDouble(): json['StrategyComplexity'];
   }
 
   Map<String, dynamic> toJson() => {
@@ -76,6 +76,7 @@ class Boardgame extends Equatable {
         'Title': title,
         'Thumbnail': thumbnail,
         'ReleaseYear': releaseYear,
+        'GeekId': geekID,
         'Description': description,
         'MinNumberOfPlayers': minPlayers,
         'MaxNumberOfPlayers': maxPlayers,
@@ -85,7 +86,6 @@ class Boardgame extends Equatable {
         'Age': age,
         'AmazonASIN': amazonASIN,
         'Image': image,
-        'GeekID': geekID,
         'GeekRating': geekRating,
         'Weight': geekWeight,
         'AtlasId': atlasID,
