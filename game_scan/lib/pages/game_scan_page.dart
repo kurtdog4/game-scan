@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:game_scan/widgets/game_scan_back_button.dart';
+import 'package:game_scan/widgets/game_scan_app_bar.dart';
 
 class GameScanPage extends StatefulWidget {
   static const String route = 'game-scan';
@@ -41,12 +41,10 @@ class _GameScanPageState extends State<GameScanPage> {
               _cameraController,
               child: Scaffold(
                 backgroundColor: Colors.transparent,
-                appBar: AppBar(
-                  backgroundColor: Colors.transparent,
-                  systemOverlayStyle:
-                      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-                  elevation: 0,
+                appBar: gameScanAppBar(
                   leading: const BackButton(),
+                  color: Colors.transparent,
+                  size: 50,
                 ),
                 floatingActionButton: IconButton(
                   icon: const Icon(Icons.circle_outlined),
