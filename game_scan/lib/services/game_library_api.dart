@@ -9,11 +9,12 @@ const String libraryApiBySearch =
     'https://g8qwblww05.execute-api.us-east-2.amazonaws.com/default/librarian-get-game-by-search';
 const String libraryApiById =
     'https://bjzbldvwx4.execute-api.us-east-2.amazonaws.com/default/librarian-get-game-by-name-or-id?spudId=';
-const String topGamesQuery = '?gettopgames=gettopgames';
+const String getTopGamesApi =
+    'https://6qngjjslywsegcbcluyfxkdxf40pjouh.lambda-url.us-east-2.on.aws/';
 const String gameQuery = '?partialtext=';
 
 Future<List<Boardgame>?> getTopGames() async {
-  Response res = await http.get(Uri.parse('$libraryApiBySearch$topGamesQuery'));
+  Response res = await http.get(Uri.parse(getTopGamesApi));
   if (res.statusCode != 200) {
     return null;
   }
@@ -37,7 +38,7 @@ List<Boardgame> parseBoardgameList(String json) {
             title: boardgame['Title'],
             thumbnail: boardgame['Thumbnail'],
             releaseYear: boardgame['ReleaseYear'],
-            // geekID: boardgame['GeekID'],
+            geekID: int.parse(boardgame['GeekId']),
           ))
       .toList();
 }

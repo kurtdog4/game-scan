@@ -25,32 +25,12 @@ class _HistoryPageState extends State<HistoryPage> {
       tag: scaffoldHeroTag,
       child: GameScanScaffold(
         scaffoldPage: ScaffoldPage.history,
-        // child: Center(
-        //   child: Column(
-        //     children: [
-        //       Padding(
-        //         padding: const EdgeInsets.all(16.0),
-        //         child: TextField(
-        //           controller: searchController,
-        //           decoration: InputDecoration(
-        //             border: const OutlineInputBorder(),
-        //             labelText: "History",
-        //             suffixIcon: IconButton(
-        //               icon: const Icon(Icons.search),
-        //               onPressed: () => null,
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //       Expanded(
-        child: GameList(
-          boardgames: boardgames,
-        ),
+        child: boardgames.isEmpty
+            ? const Text("No Search History Found")
+            : GameList(
+                boardgames: boardgames,
+              ),
       ),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
     );
   }
 }
