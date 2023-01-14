@@ -41,7 +41,6 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
         child: gameScanAppBar(
           leading: IconButton(
             icon: Image.asset("assets/GSLogoWhite.png"),
-            iconSize: 50,
             onPressed: () {},
           ),
         ),

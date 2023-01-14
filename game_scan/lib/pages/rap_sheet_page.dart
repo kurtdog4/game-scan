@@ -44,10 +44,7 @@ class _RapSheetPageState extends State<RapSheetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: gameScanAppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_back),
-        ),
+        leading: const BackButton(),
       ),
       body: FutureBuilder(
         future: _bggBoardgame,
