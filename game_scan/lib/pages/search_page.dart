@@ -15,8 +15,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final TextEditingController _searchController = TextEditingController();
-  Future<List<Boardgame>?> Function() _getBoardgamesFunc = () => getTopGames();
+  // Future<List<Boardgame>?> Function() _getBoardgamesFunc = () => getTopGames();
+  Future<List<Boardgame>?> _boardgames = getTopGames();
 
   @override
   Widget build(BuildContext context) {
@@ -29,31 +29,31 @@ class _SearchPageState extends State<SearchPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: "Search",
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: () {
-                        _getBoardgamesFunc = _searchController.text == ""
-                            ? () => getTopGames()
-                            : () => searchForGame(_searchController.text);
-                        setState(() {});
-                      },
+                child: Autocomplete<Boardgame>(
+                  optionsBuilder: (textEditingValue) =>
+                      searchForGame(textEditingValue.text),
+                  fieldViewBuilder: (context, textEditingController, focusNode,
+                          onFieldSubmitted) =>
+                      TextField(
+                    controller: textEditingController,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: "Search",
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: onFieldSubmitted
+                        // _getBoardgamesFunc = textEditingController.text == ""
+                        //     ? () => getTopGames()
+                        //     : () => searchForGame(textEditingController.text);
+                        // setState(() {});
+                        ,
+                      ),
                     ),
                   ),
-                  onSubmitted: (value) {
-                    _getBoardgamesFunc = _searchController.text == ""
-                        ? () => getTopGames()
-                        : () => searchForGame(_searchController.text);
-                    setState(() {});
-                  },
                 ),
               ),
               Expanded(
-                child: GameList(getBoardgamesFunc: _getBoardgamesFunc),
+                child: GameList(boardgamesFuture: _boardgames),
               ),
             ],
           ),

@@ -22,6 +22,9 @@ Future<List<Boardgame>?> getTopGames() async {
 }
 
 Future<List<Boardgame>> searchForGame(String text) async {
+  if (text == "") {
+    return [];
+  }
   Response res =
       await http.get(Uri.parse('$libraryApiBySearch$gameQuery$text'));
   if (res.statusCode != 200) {
