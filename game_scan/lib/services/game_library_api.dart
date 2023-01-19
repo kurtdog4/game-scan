@@ -33,14 +33,7 @@ Future<List<Boardgame>> searchForGame(String text) async {
 List<Boardgame> parseBoardgameList(String json) {
   List<dynamic> boardgameMap = jsonDecode(json);
   return boardgameMap
-      .map((boardgame) => Boardgame(
-            spudID: boardgame['SpudID'],
-            title: boardgame['Title'],
-            thumbnail: boardgame['Thumbnail'],
-            releaseYear: boardgame['ReleaseYear'],
-            geekID: int.parse(boardgame['GeekId']),
-          ))
-      .toList();
+          .map((boardgame) => Boardgame.fromJSON(boardgame)).toList();
 }
 
 Future<Boardgame> getBoardGameRapSheet(int spudId) async {
