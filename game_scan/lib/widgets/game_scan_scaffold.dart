@@ -39,9 +39,9 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40),
         child: gameScanAppBar(
-          leading: IconButton(
-            icon: Image.asset("assets/GSLogoWhite.png"),
-            onPressed: () {},
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Image.asset("assets/GSLogoWhite.png"),
           ),
         ),
       ),

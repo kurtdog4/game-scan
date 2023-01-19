@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create:(context) => SearchHistory(),
+      create: (context) => SearchHistory(),
       lazy: false,
       child: MaterialApp(
         title: 'GameScan',
@@ -40,7 +40,10 @@ class MyApp extends StatelessWidget {
               if (settings.name == RapSheetPage.route) {
                 RapSheetPageArgs rapSheetPageArgs =
                     settings.arguments as RapSheetPageArgs;
-                return RapSheetPage(rapSheetPageArgs.spudID, rapSheetPageArgs.geekID);
+                return RapSheetPage(
+                  rapSheetPageArgs.spudID,
+                  rapSheetPageArgs.geekID,
+                );
               } else {
                 return routes[settings.name]!;
               }

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+var primary = Colors.blue.shade800;
+var secondary = Colors.yellow.shade600;
+var greyBackground = const Color.fromARGB(255, 77, 77, 77);
+
 ThemeData gameScanLightThemeData = ThemeData(
-  colorScheme: const ColorScheme(
+  colorScheme: ColorScheme(
     brightness: Brightness.light,
-    primary: Color.fromARGB(255, 0, 43, 69),
+    primary: primary,
     onPrimary: Colors.white,
-    secondary: Color.fromARGB(255, 255, 217, 1),
+    secondary: secondary,
     onSecondary: Colors.black,
     error: Colors.red,
     onError: Colors.white,
@@ -14,26 +18,26 @@ ThemeData gameScanLightThemeData = ThemeData(
     surface: Colors.white,
     onSurface: Colors.black,
   ),
-  canvasColor: const Color.fromARGB(255, 0, 43, 69),
+  canvasColor: primary,
   scaffoldBackgroundColor: Colors.white,
   unselectedWidgetColor: Colors.white,
 );
 
 ThemeData gameScanDarkThemeData = ThemeData(
-  colorScheme: const ColorScheme(
+  colorScheme: ColorScheme(
     brightness: Brightness.dark,
-    primary: Color.fromARGB(255, 0, 43, 69),
+    primary: primary,
     onPrimary: Colors.white,
-    secondary: Color.fromARGB(255, 255, 217, 1),
+    secondary: secondary,
     onSecondary: Colors.black,
     error: Colors.red,
     onError: Colors.white,
-    background: Color.fromARGB(255, 77, 77, 77),
+    background: greyBackground,
     onBackground: Colors.white,
-    surface: Color.fromARGB(255, 77, 77, 77),
+    surface: primary,
     onSurface: Colors.white,
   ),
-  canvasColor: const Color.fromARGB(255, 0, 43, 69),
-  scaffoldBackgroundColor: const Color.fromARGB(255, 77, 77, 77),
+  canvasColor: primary,
+  scaffoldBackgroundColor: greyBackground,
   unselectedWidgetColor: Colors.white,
 );
