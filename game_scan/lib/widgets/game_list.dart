@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_scan/models/boardgame.dart';
 import 'package:game_scan/pages/rap_sheet_page.dart';
+import 'package:game_scan/services/game_library_api.dart';
 
 class GameList extends StatefulWidget {
   final List<Boardgame>? boardgames;
@@ -87,8 +88,12 @@ class _GameListState extends State<GameList> {
                 ),
               ),
             ),
-            onTap: () => Navigator.of(context).pushNamed(RapSheetPage.route,
-                arguments: RapSheetPageArgs(boardgame.spudID, boardgame.geekID)),
+            onTap: () async {
+              int geekID = boardgame.geekID ??
+                  (await getBoardGameRapSheet(boardgame.spudID)).geekID!;
+              Navigator.of(context).pushNamed(RapSheetPage.route,
+                  arguments: RapSheetPageArgs(boardgame.spudID, geekID));
+            },
           ),
         );
       },

@@ -28,7 +28,6 @@ class RapSheetPage extends StatefulWidget {
 
 class _RapSheetPageState extends State<RapSheetPage> {
   late Future<Boardgame> _boardgame;
-  late Future<BGGBoardgame> _bggBoardgame;
 
   @override
   void initState() {
@@ -36,7 +35,6 @@ class _RapSheetPageState extends State<RapSheetPage> {
     _boardgame.then((Boardgame boardgame) {
       context.read<SearchHistory>().addToSearchHistory(boardgame);
     });
-    _bggBoardgame = getBGGBoardGameData(widget.geekID);
     super.initState();
   }
 
@@ -47,377 +45,407 @@ class _RapSheetPageState extends State<RapSheetPage> {
         leading: const BackButton(),
       ),
       body: FutureBuilder(
-        future: _bggBoardgame,
+        future: _boardgame,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            BGGBoardgame boardgame = snapshot.data!;
-            return Column(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Stack(
+            Boardgame boardgame = snapshot.data!;
+            Future<BGGBoardgame> bggBoardgameFuture =
+                getBGGBoardGameData(boardgame.geekID!);
+            double geekWeight = boardgame.geekWeight!;
+            return FutureBuilder(
+              future: bggBoardgameFuture,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  BGGBoardgame bggBoardgame = snapshot.data!;
+                  return Column(
                     children: [
-                      SizedBox.expand(
-                        child: Image.network(
-                          fit: BoxFit.cover,
-                          boardgame.thumbnail,
-                          color: Colors.black.withOpacity(.8),
-                          colorBlendMode: BlendMode.darken,
-                        ),
-                      ),
-                      SizedBox.expand(
-                        child: Column(
+                      Expanded(
+                        flex: 3,
+                        child: Stack(
                           children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    FittedBox(
-                                      fit: BoxFit.fitWidth,
-                                      child: Text(
-                                        '${boardgame.name} (${boardgame.yearPublished})',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 26.0,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Expanded(
-                                      child: Image.network(boardgame.thumbnail),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    SizedBox(
-                                      width: double.infinity,
+                            SizedBox.expand(
+                              child: Image.network(
+                                fit: BoxFit.cover,
+                                boardgame.thumbnail,
+                                color: Colors.black.withOpacity(.8),
+                                colorBlendMode: BlendMode.darken,
+                              ),
+                            ),
+                            SizedBox.expand(
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.center,
                                         children: [
-                                          Text.rich(
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                color: Colors.grey),
-                                            TextSpan(
+                                          FittedBox(
+                                            fit: BoxFit.fitWidth,
+                                            child: Text(
+                                              '${bggBoardgame.name} (${bggBoardgame.yearPublished})',
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 26.0,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Expanded(
+                                            child: Image.network(
+                                                bggBoardgame.thumbnail),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          SizedBox(
+                                            width: double.infinity,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                const TextSpan(
-                                                  text: 'Designer: ',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
+                                                Text.rich(
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      color: Colors.grey),
+                                                  TextSpan(
+                                                    children: [
+                                                      const TextSpan(
+                                                        text: 'Designer: ',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                      for (int i = 0;
+                                                          i <
+                                                              bggBoardgame
+                                                                      .designers
+                                                                      .length -
+                                                                  1;
+                                                          ++i)
+                                                        TextSpan(
+                                                            text:
+                                                                '${bggBoardgame.designers.elementAt(i)}, '),
+                                                      TextSpan(
+                                                          text: bggBoardgame
+                                                              .designers.last),
+                                                    ],
                                                   ),
                                                 ),
-                                                for (int i = 0;
-                                                    i <
-                                                        boardgame.designers
-                                                                .length -
-                                                            1;
-                                                    ++i)
+                                                const SizedBox(height: 2),
+                                                Text.rich(
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      color: Colors.grey),
                                                   TextSpan(
-                                                      text:
-                                                          '${boardgame.designers.elementAt(i)}, '),
-                                                TextSpan(
-                                                    text: boardgame
-                                                        .designers.last),
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(height: 2),
-                                          Text.rich(
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                color: Colors.grey),
-                                            TextSpan(
-                                              children: [
-                                                const TextSpan(
-                                                  text: 'Artist: ',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
+                                                    children: [
+                                                      const TextSpan(
+                                                        text: 'Artist: ',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      for (int i = 0;
+                                                          i <
+                                                              bggBoardgame
+                                                                      .artists
+                                                                      .length -
+                                                                  1;
+                                                          ++i)
+                                                        TextSpan(
+                                                            text:
+                                                                '${bggBoardgame.artists.elementAt(i)}, '),
+                                                      TextSpan(
+                                                          text: bggBoardgame
+                                                              .artists.last),
+                                                    ],
+                                                  ),
                                                 ),
-                                                for (int i = 0;
-                                                    i <
-                                                        boardgame.artists
-                                                                .length -
-                                                            1;
-                                                    ++i)
+                                                const SizedBox(height: 2),
+                                                Text.rich(
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      color: Colors.grey),
                                                   TextSpan(
-                                                      text:
-                                                          '${boardgame.artists.elementAt(i)}, '),
-                                                TextSpan(
-                                                    text:
-                                                        boardgame.artists.last),
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(height: 2),
-                                          Text.rich(
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                color: Colors.grey),
-                                            TextSpan(
-                                              children: [
-                                                const TextSpan(
-                                                  text: 'Publisher: ',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
+                                                    children: [
+                                                      const TextSpan(
+                                                        text: 'Publisher: ',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      for (int i = 0;
+                                                          i <
+                                                              bggBoardgame
+                                                                      .publishers
+                                                                      .length -
+                                                                  1;
+                                                          ++i)
+                                                        TextSpan(
+                                                            text:
+                                                                '${bggBoardgame.publishers.elementAt(i)}, '),
+                                                      TextSpan(
+                                                          text: bggBoardgame
+                                                              .publishers.last),
+                                                    ],
+                                                  ),
                                                 ),
-                                                for (int i = 0;
-                                                    i <
-                                                        boardgame.publishers
-                                                                .length -
-                                                            1;
-                                                    ++i)
-                                                  TextSpan(
-                                                      text:
-                                                          '${boardgame.publishers.elementAt(i)}, '),
-                                                TextSpan(
-                                                    text: boardgame
-                                                        .publishers.last),
                                               ],
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: double.infinity,
-                              height: 120,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              border: Border(
-                                                top: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 1),
-                                                right: BorderSide(
-                                                    color: Colors.white,
-                                                    width: .5),
-                                                bottom: BorderSide(
-                                                    color: Colors.white,
-                                                    width: .5),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: const [
-                                                    Icon(
-                                                      Icons.groups,
-                                                      color: Colors.white,
-                                                    ),
-                                                    SizedBox(width: 8),
-                                                    Text(
-                                                      'Players',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Text(
-                                                  '${boardgame.minPlayers} - ${boardgame.maxPlayers}',
-                                                  style: const TextStyle(
-                                                      color: Colors.white),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              border: Border(
-                                                top: BorderSide(
-                                                    color: Colors.white,
-                                                    width: .5),
-                                                right: BorderSide(
-                                                    color: Colors.white,
-                                                    width: .5),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: const [
-                                                    Icon(
-                                                      Icons.supervisor_account,
-                                                      color: Colors.white,
-                                                    ),
-                                                    SizedBox(width: 4),
-                                                    Text(
-                                                      'Age',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Text(
-                                                  '${boardgame.age}+',
-                                                  style: const TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                                   ),
-                                  Expanded(
-                                    child: Column(
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 120,
+                                    child: Row(
                                       children: [
                                         Expanded(
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              border: Border(
-                                                top: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 1),
-                                                left: BorderSide(
-                                                    color: Colors.white,
-                                                    width: .5),
-                                                bottom: BorderSide(
-                                                    color: Colors.white,
-                                                    width: .5),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: const [
-                                                    SizedBox(
-                                                      width: 24,
-                                                      height: 24,
-                                                      child: Icon(
-                                                        Icons.hourglass_bottom,
-                                                        size: 20,
-                                                        color: Colors.white,
-                                                      ),
+                                          child: Column(
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    border: Border(
+                                                      top: BorderSide(
+                                                          color: Colors.white,
+                                                          width: 1),
+                                                      right: BorderSide(
+                                                          color: Colors.white,
+                                                          width: .5),
+                                                      bottom: BorderSide(
+                                                          color: Colors.white,
+                                                          width: .5),
                                                     ),
-                                                    SizedBox(width: 4),
-                                                    Text(
-                                                      'Playing Time',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Text(
-                                                  boardgame.maxPlayTime !=
-                                                          boardgame.minPlayTime
-                                                      ? '${boardgame.minPlayTime} - ${boardgame.maxPlayTime}'
-                                                      : '${boardgame.playingTime}',
-                                                  style: const TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              border: Border(
-                                                top: BorderSide(
-                                                    color: Colors.white,
-                                                    width: .5),
-                                                left: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 1),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: const [
-                                                    SizedBox(
-                                                      width: 24,
-                                                      height: 24,
-                                                      child: Icon(
-                                                        Icons.scale,
-                                                        size: 18,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 4),
-                                                    Text(
-                                                      'Weight',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ],
-                                                ),
-                                                FutureBuilder(
-                                                  future: _boardgame,
-                                                  builder:
-                                                      ((context, snapshot) {
-                                                    if (!snapshot.hasData) {
-                                                      return const SizedBox(
-                                                        height: 14,
-                                                        width: 14,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                                strokeWidth: 2,
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: const [
+                                                          Icon(
+                                                            Icons.groups,
+                                                            color: Colors.white,
+                                                          ),
+                                                          SizedBox(width: 8),
+                                                          Text(
+                                                            'Players',
+                                                            style: TextStyle(
                                                                 color: Colors
                                                                     .white),
-                                                      );
-                                                    } else if (snapshot
-                                                        .hasError) {
-                                                      return const Text(
-                                                          'Error');
-                                                    } else {
-                                                      return Text(
-                                                        '${snapshot.data!.geekWeight}',
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Text(
+                                                        '${bggBoardgame.minPlayers} - ${bggBoardgame.maxPlayers}',
                                                         style: const TextStyle(
                                                             color:
                                                                 Colors.white),
-                                                      );
-                                                    }
-                                                  }),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    border: Border(
+                                                      top: BorderSide(
+                                                          color: Colors.white,
+                                                          width: .5),
+                                                      right: BorderSide(
+                                                          color: Colors.white,
+                                                          width: .5),
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: const [
+                                                          Icon(
+                                                            Icons
+                                                                .supervisor_account,
+                                                            color: Colors.white,
+                                                          ),
+                                                          SizedBox(width: 4),
+                                                          Text(
+                                                            'Age',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Text(
+                                                        '${bggBoardgame.age}+',
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        )
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    border: Border(
+                                                      top: BorderSide(
+                                                          color: Colors.white,
+                                                          width: 1),
+                                                      left: BorderSide(
+                                                          color: Colors.white,
+                                                          width: .5),
+                                                      bottom: BorderSide(
+                                                          color: Colors.white,
+                                                          width: .5),
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: const [
+                                                          SizedBox(
+                                                            width: 24,
+                                                            height: 24,
+                                                            child: Icon(
+                                                              Icons
+                                                                  .hourglass_bottom,
+                                                              size: 20,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                          SizedBox(width: 4),
+                                                          Text(
+                                                            'Playing Time',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Text(
+                                                        bggBoardgame.maxPlayTime !=
+                                                                bggBoardgame
+                                                                    .minPlayTime
+                                                            ? '${bggBoardgame.minPlayTime} - ${bggBoardgame.maxPlayTime}'
+                                                            : '${bggBoardgame.playingTime}',
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    border: Border(
+                                                      top: BorderSide(
+                                                          color: Colors.white,
+                                                          width: .5),
+                                                      left: BorderSide(
+                                                          color: Colors.white,
+                                                          width: 1),
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: const [
+                                                          SizedBox(
+                                                            width: 24,
+                                                            height: 24,
+                                                            child: Icon(
+                                                              Icons.scale,
+                                                              size: 18,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                          SizedBox(width: 4),
+                                                          Text(
+                                                            'Weight',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Text(
+                                                        geekWeight
+                                                            .toStringAsFixed(2),
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -427,16 +455,16 @@ class _RapSheetPageState extends State<RapSheetPage> {
                           ],
                         ),
                       ),
+                      Expanded(
+                        flex: 2,
+                        child: SingleChildScrollView(
+                          child: Html(data: bggBoardgame.description),
+                        ),
+                      ),
                     ],
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: SingleChildScrollView(
-                    child: Html(data: boardgame.description),
-                  ),
-                ),
-              ],
+                  );
+                }
+              },
             );
           }
         },
