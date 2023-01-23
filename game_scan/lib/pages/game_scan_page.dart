@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:game_scan/widgets/game_scan_app_bar.dart';
+import 'package:game_scan/widgets/game_scan_circular_progress_indicator.dart';
 
 class GameScanPage extends StatefulWidget {
   static const String route = 'game-scan';
@@ -44,6 +44,7 @@ class _GameScanPageState extends State<GameScanPage> {
                 appBar: gameScanAppBar(
                   context,
                   color: Colors.transparent,
+                  iconColor: Colors.white,
                 ),
                 floatingActionButton: IconButton(
                   icon: const Icon(Icons.circle_outlined),
@@ -56,7 +57,7 @@ class _GameScanPageState extends State<GameScanPage> {
               ),
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: GameScanGameScanCircularProgressIndicator());
           }
         },
       ),
