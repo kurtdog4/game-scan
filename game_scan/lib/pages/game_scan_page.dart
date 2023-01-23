@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:game_scan/services/game_scan_api.dart';
 import 'package:game_scan/widgets/game_scan_app_bar.dart';
 
 class GameScanPage extends StatefulWidget {
@@ -50,7 +51,7 @@ class _GameScanPageState extends State<GameScanPage> {
                   icon: const Icon(Icons.circle_outlined),
                   color: Colors.white,
                   iconSize: 75,
-                  onPressed: () => null,
+                  onPressed: () => getListFromImage(),
                 ),
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerFloat,
