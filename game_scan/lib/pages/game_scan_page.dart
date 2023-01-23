@@ -42,9 +42,8 @@ class _GameScanPageState extends State<GameScanPage> {
               child: Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: gameScanAppBar(
-                  leading: const BackButton(),
+                  context,
                   color: Colors.transparent,
-                  size: 50,
                 ),
                 floatingActionButton: IconButton(
                   icon: const Icon(Icons.circle_outlined),

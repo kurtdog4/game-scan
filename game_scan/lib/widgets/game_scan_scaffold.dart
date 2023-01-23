@@ -36,15 +36,7 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
   @override
   Widget build(BuildContext build) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(40),
-        child: gameScanAppBar(
-          leading: IconButton(
-            icon: Image.asset("assets/GSLogoWhite.png"),
-            onPressed: () {},
-          ),
-        ),
-      ),
+      appBar: gameScanAppBar(context),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -81,16 +73,16 @@ class _GameScanScaffoldState extends State<GameScanScaffold> {
     }
     switch (scaffoldPage) {
       case ScaffoldPage.history:
-        Navigator.of(context).pushNamed(HistoryPage.route);
+        Navigator.of(context).pushReplacementNamed(HistoryPage.route);
         break;
       case ScaffoldPage.search:
-        Navigator.of(context).pushNamed(SearchPage.route);
+        Navigator.of(context).pushReplacementNamed(SearchPage.route);
         break;
       case ScaffoldPage.browse:
-        Navigator.of(context).pushNamed(BrowsePage.route);
+        Navigator.of(context).pushReplacementNamed(BrowsePage.route);
         break;
       case ScaffoldPage.rulesbot:
-        Navigator.of(context).pushNamed(RulesbotPage.route);
+        Navigator.of(context).pushReplacementNamed(RulesbotPage.route);
         break;
       default:
         break;

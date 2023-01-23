@@ -5,7 +5,7 @@ class Boardgame extends Equatable {
   late String title;
   late String thumbnail;
   late int releaseYear;
-  late int geekID;
+  int? geekID;
   String? description;
   int? minPlayers;
   int? maxPlayers;
@@ -27,7 +27,7 @@ class Boardgame extends Equatable {
     required this.title,
     required this.thumbnail,
     required this.releaseYear,
-    required this.geekID,
+    this.geekID,
     this.description,
     this.minPlayers,
     this.maxPlayers,
@@ -53,7 +53,7 @@ class Boardgame extends Equatable {
     title = json['Title'];
     thumbnail = json['Thumbnail'];
     releaseYear = json['ReleaseYear'];
-    geekID = json['GeekId'] is int ? json['GeekId'] : int.parse(json['GeekId']);
+    geekID = json['GeekId'] != null ? json['GeekId'] is int ? json['GeekId'] : int.parse(json['GeekId']) : null;
     description = json['Description'];
     minPlayers = json['MinNumberOfPlayers'];
     maxPlayers = json['MaxNumberOfPlayers'];
