@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_scan/models/boardgame.dart';
 import 'package:game_scan/pages/rap_sheet_page.dart';
 import 'package:game_scan/services/game_library_api.dart';
+import 'package:game_scan/widgets/game_scan_circular_progress_indicator.dart';
 
 class GameList extends StatefulWidget {
   final List<Boardgame>? boardgames;
@@ -25,7 +26,7 @@ class _GameListState extends State<GameList> {
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done ||
                   snapshot.hasError) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: GameScanGameScanCircularProgressIndicator());
               } else if (snapshot.hasError || !snapshot.hasData) {
                 return Center(
                   child: Column(

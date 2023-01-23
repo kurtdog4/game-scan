@@ -5,6 +5,7 @@ import 'package:game_scan/widgets/game_scan_settings_button.dart';
 PreferredSizeWidget gameScanAppBar(
   BuildContext context, {
   Color? color,
+  Color? iconColor,
 }) {
   return PreferredSize(
     preferredSize: const Size.fromHeight(40),
@@ -17,8 +18,14 @@ PreferredSizeWidget gameScanAppBar(
                 : Brightness.light,
       ),
       shadowColor: Colors.transparent,
+      backgroundColor: color,
       leading: Navigator.of(context).canPop()
-          ? const BackButton()
+          ? BackButton(
+              color: iconColor ??
+                  (Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : Colors.white),
+            )
           : Padding(
               padding: const EdgeInsets.only(left: 14),
               child: Theme.of(context).brightness == Brightness.light
