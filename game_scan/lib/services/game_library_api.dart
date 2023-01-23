@@ -22,6 +22,9 @@ Future<List<Boardgame>?> getTopGames() async {
 }
 
 Future<List<Boardgame>> searchForGame(String text) async {
+  if (text == "") {
+    return [];
+  }
   Response res =
       await http.get(Uri.parse('$libraryApiBySearch$gameQuery$text'));
   if (res.statusCode != 200) {
@@ -33,7 +36,8 @@ Future<List<Boardgame>> searchForGame(String text) async {
 List<Boardgame> parseBoardgameList(String json) {
   List<dynamic> boardgameMap = jsonDecode(json);
   return boardgameMap
-          .map((boardgame) => Boardgame.fromJSON(boardgame)).toList();
+      .map((boardgame) => Boardgame.fromJSON(boardgame))
+      .toList();
 }
 
 Future<Boardgame> getBoardGameRapSheet(int spudId) async {
