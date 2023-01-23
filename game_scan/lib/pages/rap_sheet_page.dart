@@ -46,9 +46,7 @@ class _RapSheetPageState extends State<RapSheetPage> {
     return Hero(
       tag: scaffoldHeroTag,
       child: Scaffold(
-        appBar: gameScanAppBar(
-          leading: const BackButton(),
-        ),
+        appBar: gameScanAppBar(context),
         body: FutureBuilder(
           future: _bggBoardgame,
           builder: (context, snapshot) {

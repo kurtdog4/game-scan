@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       lazy: false,
       child: MaterialApp(
         title: 'GameScan',
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.system,
         theme: gameScanLightThemeData,
         darkTheme: gameScanDarkThemeData,
         initialRoute: SearchPage.route,

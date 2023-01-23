@@ -28,28 +28,40 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: "Search",
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: () {
-                        _getBoardgamesFunc = _searchController.text == ""
-                            ? () => getTopGames()
-                            : () => searchForGame(_searchController.text);
-                        setState(() {});
-                      },
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Center(
+                  child: TextField(
+                    controller: _searchController,
+                    cursorColor:
+                        Theme.of(context).brightness == Brightness.light
+                            ? Colors.black
+                            : Colors.white,
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide.none,
+                      ),
+                      labelText: 'Search',
+                      labelStyle: TextStyle(color: Colors.grey.shade400),
+                      fillColor:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Colors.grey.shade200
+                              : Colors.grey.shade800,
+                      filled: true,
+                      focusColor: Colors.red,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      isCollapsed: true,
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                     ),
+                    onSubmitted: (value) {
+                      _getBoardgamesFunc = _searchController.text == ""
+                          ? () => getTopGames()
+                          : () => searchForGame(_searchController.text);
+                      setState(() {});
+                    },
                   ),
-                  onSubmitted: (value) {
-                    _getBoardgamesFunc = _searchController.text == ""
-                        ? () => getTopGames()
-                        : () => searchForGame(_searchController.text);
-                    setState(() {});
-                  },
                 ),
               ),
               Expanded(
