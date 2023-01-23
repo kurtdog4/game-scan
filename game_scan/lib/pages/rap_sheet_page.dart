@@ -6,6 +6,7 @@ import 'package:game_scan/models/boardgame.dart';
 import 'package:game_scan/services/bgg_api.dart';
 import 'package:game_scan/services/game_library_api.dart';
 import 'package:game_scan/widgets/game_scan_app_bar.dart';
+import 'package:game_scan/widgets/game_scan_scaffold.dart';
 import 'package:provider/provider.dart';
 
 class RapSheetPageArgs {
@@ -41,9 +42,7 @@ class _RapSheetPageState extends State<RapSheetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: gameScanAppBar(
-        leading: const BackButton(),
-      ),
+      appBar: gameScanAppBar(context),
       body: FutureBuilder(
         future: _boardgame,
         builder: (context, snapshot) {

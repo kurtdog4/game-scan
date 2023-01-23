@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 class GameScanSettingsButton extends StatelessWidget {
-  const GameScanSettingsButton({super.key});
+  const GameScanSettingsButton(BuildContext context, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => null,
-      icon: const Icon(Icons.settings),
+      icon: Icon(
+        Icons.settings,
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.black
+            : Colors.white,
+      ),
     );
   }
 }
