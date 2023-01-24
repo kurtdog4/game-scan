@@ -2,36 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:game_scan/models/boardgame.dart';
 import 'package:game_scan/pages/rap_sheet_page.dart';
 import 'package:game_scan/services/game_library_api.dart';
+import 'package:game_scan/widgets/game_scan_circular_progress_indicator.dart';
 
 class GameList extends StatefulWidget {
   final List<Boardgame>? boardgames;
-  final Future<List<Boardgame>?> Function()? getBoardgamesFunc;
+  final Future<List<Boardgame>?>? boardgamesFuture;
 
-  GameList({super.key, this.boardgames, this.getBoardgamesFunc})
-      : assert((boardgames != null || getBoardgamesFunc != null) &&
-            (boardgames == null || getBoardgamesFunc == null));
+  const GameList({super.key, this.boardgames, this.boardgamesFuture})
+      : assert((boardgames != null || boardgamesFuture != null) &&
+            (boardgames == null || boardgamesFuture == null));
 
   @override
   State<GameList> createState() => _GameListState();
 }
 
 class _GameListState extends State<GameList> {
-  late Future<List<Boardgame>?> boardgamesFuture;
-
   @override
   Widget build(BuildContext context) {
-    if (widget.boardgames == null) {
-      boardgamesFuture = widget.getBoardgamesFunc!();
-    }
-
     return widget.boardgames != null
         ? _boardgameListBuilder(widget.boardgames!)
         : FutureBuilder(
-            future: boardgamesFuture,
+            future: widget.boardgamesFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done ||
                   snapshot.hasError) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: GameScanGameScanCircularProgressIndicator());
               } else if (snapshot.hasError || !snapshot.hasData) {
                 return Center(
                   child: Column(
@@ -91,8 +86,10 @@ class _GameListState extends State<GameList> {
             onTap: () async {
               int geekID = boardgame.geekID ??
                   (await getBoardGameRapSheet(boardgame.spudID)).geekID!;
-              Navigator.of(context).pushNamed(RapSheetPage.route,
-                  arguments: RapSheetPageArgs(boardgame.spudID, geekID));
+              if (mounted) {
+                Navigator.of(context).pushNamed(RapSheetPage.route,
+                    arguments: RapSheetPageArgs(boardgame.spudID, geekID));
+              }
             },
           ),
         );
