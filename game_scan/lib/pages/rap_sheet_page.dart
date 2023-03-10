@@ -47,7 +47,7 @@ class _RapSheetPageState extends State<RapSheetPage> {
         future: _boardgame,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Center(child: GameScanGameScanCircularProgressIndicator());
+            return const Center(child: GameScanCircularProgressIndicator());
           } else {
             Boardgame boardgame = snapshot.data!;
             Future<BGGBoardgame> bggBoardgameFuture =
@@ -58,7 +58,7 @@ class _RapSheetPageState extends State<RapSheetPage> {
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(
-                      child: GameScanGameScanCircularProgressIndicator());
+                      child: GameScanCircularProgressIndicator());
                 } else {
                   BGGBoardgame bggBoardgame = snapshot.data!;
                   return Column(

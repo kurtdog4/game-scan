@@ -18,7 +18,8 @@ class _RulesbotPageState extends State<RulesbotPage> {
     return Hero(
       tag: scaffoldHeroTag,
       child: GameScanScaffold(
-        scaffoldPage: ScaffoldPage.rulesbot,
+        // scaffoldPage: ScaffoldPage.rulesbot,
+        scaffoldPage: ScaffoldPage.none,
         child: Center(
           child: Column(
             children: [

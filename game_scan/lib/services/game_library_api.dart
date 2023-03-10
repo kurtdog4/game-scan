@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
@@ -14,11 +15,18 @@ const String getTopGamesApi =
 const String gameQuery = '?partialtext=';
 
 Future<List<Boardgame>?> getTopGames() async {
-  Response res = await http.get(Uri.parse(getTopGamesApi));
-  if (res.statusCode != 200) {
+  try {
+    Response res = await http.get(Uri.parse(getTopGamesApi));
+    if (res.statusCode != 200) {
+      return null;
+    }
+    return parseBoardgameList(res.body);
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
     return null;
   }
-  return parseBoardgameList(res.body);
 }
 
 Future<List<Boardgame>> searchForGame(String text) async {

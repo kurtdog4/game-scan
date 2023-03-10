@@ -18,7 +18,8 @@ class _BrowsePageState extends State<BrowsePage> {
     return Hero(
       tag: scaffoldHeroTag,
       child: GameScanScaffold(
-        scaffoldPage: ScaffoldPage.browse,
+        // scaffoldPage: ScaffoldPage.browse,
+        scaffoldPage: ScaffoldPage.none,
         child: Center(
           child: Column(
             children: [

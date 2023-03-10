@@ -6,16 +6,18 @@ PreferredSizeWidget gameScanAppBar(
   BuildContext context, {
   Color? color,
   Color? iconColor,
+  Brightness? statusBarIconBrightness,
+  bool disableSettingsButton = false,
 }) {
   return PreferredSize(
     preferredSize: const Size.fromHeight(40),
     child: AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness:
-            Theme.of(context).brightness == Brightness.light
+        statusBarIconBrightness: statusBarIconBrightness ??
+            (Theme.of(context).brightness == Brightness.light
                 ? Brightness.dark
-                : Brightness.light,
+                : Brightness.light),
       ),
       shadowColor: Colors.transparent,
       backgroundColor: color,
@@ -33,7 +35,7 @@ PreferredSizeWidget gameScanAppBar(
                   : Image.asset('assets/GSLogoWhite.png'),
             ),
       actions: [
-        GameScanSettingsButton(context),
+        if (!disableSettingsButton) GameScanSettingsButton(context),
       ],
     ),
   );
