@@ -5,6 +5,7 @@ ThemeData gameScanLightThemeData = ThemeData(
     primary: Colors.white,
     secondary: Colors.blue,
   ),
+  scaffoldBackgroundColor: Colors.grey[175],
 );
 
 ThemeData gameScanDarkThemeData = ThemeData(

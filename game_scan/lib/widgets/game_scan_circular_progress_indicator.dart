@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GameScanGameScanCircularProgressIndicator extends StatelessWidget {
-  const GameScanGameScanCircularProgressIndicator({super.key});
+class GameScanCircularProgressIndicator extends StatelessWidget {
+  final Color? color;
+  const GameScanCircularProgressIndicator({super.key, this.color});
 
   @override
   Widget build(BuildContext context) => CircularProgressIndicator(
-      color: Theme.of(context).brightness == Brightness.light
-          ? Colors.black
-          : Colors.white);
+      color: color ??
+          (Theme.of(context).brightness == Brightness.light
+              ? Colors.black
+              : Colors.white));
 }

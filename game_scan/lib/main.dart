@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_scan/local_storage/search_history.dart';
 import 'package:game_scan/pages/browse_page.dart';
+import 'package:game_scan/pages/game_scan_results.dart';
 import 'package:game_scan/pages/game_scan_page.dart';
 import 'package:game_scan/pages/history_page.dart';
 import 'package:game_scan/pages/rap_sheet_page.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             HistoryPage.route: const HistoryPage(),
             BrowsePage.route: const BrowsePage(),
             RulesbotPage.route: const RulesbotPage(),
-            GameScanPage.route: const GameScanPage(),
+            GameScanPage.route: GameScanPage(),
           };
           return MaterialPageRoute(
             builder: (context) {
@@ -43,6 +44,12 @@ class MyApp extends StatelessWidget {
                 return RapSheetPage(
                   rapSheetPageArgs.spudID,
                   rapSheetPageArgs.geekID,
+                );
+              } else if (settings.name == GameScanResultsPage.route) {
+                GameScanResultsPageArgs gameScanResultsPageArgs =
+                    settings.arguments as GameScanResultsPageArgs;
+                return GameScanResultsPage(
+                  gameScanResultsPageArgs.boardgamesFuture,
                 );
               } else {
                 return routes[settings.name]!;

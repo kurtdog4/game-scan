@@ -44,7 +44,7 @@ class _SearchPageState extends State<SearchPage> {
                     labelText: 'Search',
                     labelStyle: TextStyle(color: Colors.grey.shade400),
                     fillColor: Theme.of(context).brightness == Brightness.light
-                        ? Colors.grey.shade200
+                        ? Colors.grey[275]
                         : Colors.grey.shade800,
                     filled: true,
                     focusColor: Colors.red,

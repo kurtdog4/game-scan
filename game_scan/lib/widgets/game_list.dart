@@ -26,7 +26,7 @@ class _GameListState extends State<GameList> {
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done ||
                   snapshot.hasError) {
-                return const Center(child: GameScanGameScanCircularProgressIndicator());
+                return const Center(child: GameScanCircularProgressIndicator());
               } else if (snapshot.hasError || !snapshot.hasData) {
                 return Center(
                   child: Column(
@@ -51,9 +51,10 @@ class _GameListState extends State<GameList> {
       itemBuilder: (BuildContext context, int index) {
         Boardgame boardgame = boardgames[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: InkWell(
             child: Card(
+              margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
               child: SizedBox(
                 height: 100,
                 child: Padding(
